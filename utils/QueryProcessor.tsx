@@ -23,10 +23,27 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("plus") && query.toLowerCase().includes("multiplied by")) {
+    // Handle mixed addition and multiplication
+    const numbers = query.match(/\d+/g); // Extract all numbers from the query
+    if (numbers && numbers.length >= 3) {
+      const [first, second, third] = numbers.map(Number); // Extract the three numbers
+      if (query.indexOf("multiplied by") < query.indexOf("plus")) {
+        // If multiplication comes before addition
+        const result = second * third + first; // X + (Y * Z)
+        return result.toString();
+      } else {
+        // If addition comes before multiplication
+        const result = first * second + third; // (X * Y) + Z
+        return result.toString();
+      }
+    }
+  }
+
   if (query.toLowerCase().includes("plus")) {
     const numbers = query.match(/\d+/g);
-    if (numbers && numbers.length === 2) {
-      const sum = Number(numbers[0]) + Number(numbers[1]);
+    if (numbers && numbers.length >= 2) {
+      const sum = numbers.map(Number).reduce((acc, num) => acc + num, 0);
       return sum.toString();
     }
   }
@@ -74,19 +91,10 @@ export default function QueryProcessor(query: string): string {
   }
 
   if (query.toLowerCase().includes("to the power of")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    const numbers = query.match(/\d+/g);
     if (numbers && numbers.length === 2) {
-      const result = Math.pow(Number(numbers[0]), Number(numbers[1])); // Perform the power calculation
-      return result.toString(); // Return the result as a string
-    }
-  }
-
-  // New query for handling multiple additions, e.g., "44 plus 40 plus 95"
-  if (query.toLowerCase().includes("plus")) {
-    const numbers = query.match(/\d+/g); // Extract all numbers from the query
-    if (numbers && numbers.length >= 2) {
-      const sum = numbers.map(Number).reduce((acc, num) => acc + num, 0); // Sum all the numbers
-      return sum.toString(); // Return the sum as a string
+      const result = Math.pow(Number(numbers[0]), Number(numbers[1]));
+      return result.toString();
     }
   }
 
