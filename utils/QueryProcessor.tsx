@@ -13,17 +13,17 @@ export default function QueryProcessor(query: string): string {
     return "ssaigh";
   }
 
-  if (query.includes("what is your name?")) {
+  if (query.includes("What is your name?")) {
     //TODO add your Andrew ID below
     //TODO update the corresponding test case in __tests__
-    return "ssaigh-313";
+    return "Salman";
   }
 
   if (query.toLowerCase().includes("which of the following numbers is the largest")) {
     const numbers = query.match(/\d+/g); // Extract the numbers from the query
     if (numbers) {
       const largest = Math.max(...numbers.map(Number)); // Convert to numbers and find the largest
-      return `The largest number is ${largest}.`;
+      return largest.toString(); // Return only the number as a string
     }
   }
 
