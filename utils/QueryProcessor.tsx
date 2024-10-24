@@ -8,57 +8,51 @@ export default function QueryProcessor(query: string): string {
   }
 
   if (query.toLowerCase().includes("andrew id")) {
-    //TODO add your Andrew ID below
-    //TODO update the corresponding test case in __tests__
     return "ssaigh";
   }
 
   if (query.includes("What is your name?")) {
-    //TODO add your Andrew ID below
-    //TODO update the corresponding test case in __tests__
     return "Salman";
   }
 
   if (query.toLowerCase().includes("which of the following numbers is the largest")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    const numbers = query.match(/\d+/g);
     if (numbers) {
-      const largest = Math.max(...numbers.map(Number)); // Convert to numbers and find the largest
-      return largest.toString(); // Return only the number as a string
+      const largest = Math.max(...numbers.map(Number));
+      return largest.toString();
     }
   }
 
   if (query.toLowerCase().includes("plus")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    const numbers = query.match(/\d+/g);
     if (numbers && numbers.length === 2) {
-      const sum = Number(numbers[0]) + Number(numbers[1]); // Perform the addition
-      return sum.toString(); // Return the result as a string
+      const sum = Number(numbers[0]) + Number(numbers[1]);
+      return sum.toString();
     }
   }
 
   if (query.toLowerCase().includes("multiplied by")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    const numbers = query.match(/\d+/g);
     if (numbers && numbers.length === 2) {
-      const product = Number(numbers[0]) * Number(numbers[1]); // Perform the multiplication
-      return product.toString(); // Return the result as a string
+      const product = Number(numbers[0]) * Number(numbers[1]);
+      return product.toString();
     }
   }
 
   if (query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    const numbers = query.match(/\d+/g);
     if (numbers) {
-      // Find numbers that are both squares and cubes (i.e., sixth powers)
       const sixthPowers = numbers.filter((num) => {
-        const root = Math.round(Math.pow(Number(num), 1 / 6)); // Calculate the sixth root
-        return Math.pow(root, 6) === Number(num); // Check if raising the root to the power of 6 gives back the original number
+        const root = Math.round(Math.pow(Number(num), 1 / 6));
+        return Math.pow(root, 6) === Number(num);
       });
-      return sixthPowers.join(", ") || "None"; // Return the numbers that are both squares and cubes or "None" if there are none
+      return sixthPowers.join(", ") || "None";
     }
   }
 
   if (query.toLowerCase().includes("which of the following numbers are primes")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    const numbers = query.match(/\d+/g);
     if (numbers) {
-      // Filter prime numbers
       const primes = numbers.filter((num) => {
         const number = Number(num);
         if (number < 2) return false;
@@ -67,7 +61,15 @@ export default function QueryProcessor(query: string): string {
         }
         return true;
       });
-      return primes.join(", ") || "None"; // Return the prime numbers or "None" if there are none
+      return primes.join(", ") || "None";
+    }
+  }
+
+  if (query.toLowerCase().includes("minus")) {
+    const numbers = query.match(/\d+/g); // Extract the numbers
+    if (numbers && numbers.length === 2) {
+      const difference = Number(numbers[0]) - Number(numbers[1]); // Perform the subtraction
+      return difference.toString(); // Return the result as a string
     }
   }
 
