@@ -35,5 +35,13 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("multiplied by")) {
+    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    if (numbers && numbers.length === 2) {
+      const product = Number(numbers[0]) * Number(numbers[1]); // Perform the multiplication
+      return product.toString(); // Return the result as a string
+    }
+  }
+
   return "";
 }
