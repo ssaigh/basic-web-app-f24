@@ -43,5 +43,17 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
+    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    if (numbers) {
+      // Find numbers that are both squares and cubes (i.e., sixth powers)
+      const sixthPowers = numbers.filter((num) => {
+        const root = Math.round(Math.pow(Number(num), 1 / 6)); // Calculate the sixth root
+        return Math.pow(root, 6) === Number(num); // Check if raising the root to the power of 6 gives back the original number
+      });
+      return sixthPowers.join(", ") || "None"; // Return the numbers that are both squares and cubes or "None" if there are none
+    }
+  }
+
   return "";
 }
