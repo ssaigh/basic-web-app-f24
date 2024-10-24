@@ -81,5 +81,14 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  // New query for handling multiple additions, e.g., "44 plus 40 plus 95"
+  if (query.toLowerCase().includes("plus")) {
+    const numbers = query.match(/\d+/g); // Extract all numbers from the query
+    if (numbers && numbers.length >= 2) {
+      const sum = numbers.map(Number).reduce((acc, num) => acc + num, 0); // Sum all the numbers
+      return sum.toString(); // Return the sum as a string
+    }
+  }
+
   return "";
 }
