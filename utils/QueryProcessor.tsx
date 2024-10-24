@@ -66,10 +66,18 @@ export default function QueryProcessor(query: string): string {
   }
 
   if (query.toLowerCase().includes("minus")) {
-    const numbers = query.match(/\d+/g); // Extract the numbers
+    const numbers = query.match(/\d+/g);
     if (numbers && numbers.length === 2) {
-      const difference = Number(numbers[0]) - Number(numbers[1]); // Perform the subtraction
-      return difference.toString(); // Return the result as a string
+      const difference = Number(numbers[0]) - Number(numbers[1]);
+      return difference.toString();
+    }
+  }
+
+  if (query.toLowerCase().includes("to the power of")) {
+    const numbers = query.match(/\d+/g); // Extract the numbers from the query
+    if (numbers && numbers.length === 2) {
+      const result = Math.pow(Number(numbers[0]), Number(numbers[1])); // Perform the power calculation
+      return result.toString(); // Return the result as a string
     }
   }
 
